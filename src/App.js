@@ -12,11 +12,11 @@ class App extends Component {
       otherStateProperty: []
   }
 
-  switchNameHandler = () => {
+  switchNameHandler = (newName) => {
       // DON'T DO THIS: this.state.persons[0].name = 'José Mari';
       this.setState({
           persons: [
-              { name: 'José Mari', age: 34 },
+              { name: newName, age: 34 },
               { name: 'Guío', age: 34 },
               { name: 'Guttavo', age: 55 }
           ]
@@ -27,10 +27,18 @@ class App extends Component {
     return (
       <div className="App">
           <h1>Hi, I'm a React App</h1>
-          <button onClick={ this.switchNameHandler }>Switch name</button> {/*DON'T WRITE PARENTHESIS CALLING HANDLER*/}
-          <Person name={ this.state.persons[0].name } age={ this.state.persons[0].age } />
-          <Person name={ this.state.persons[1].name } age={ this.state.persons[1].age } />
-          <Person name={ this.state.persons[2].name } age={ this.state.persons[2].age } >My hobbies: racing</Person>
+          {/* This syntax can be inefficient */}
+          <button onClick={ () => this.switchNameHandler('José Mari') }>Switch name</button>
+          <Person
+              name={ this.state.persons[0].name }
+              age={ this.state.persons[0].age } />
+          <Person
+              name={ this.state.persons[1].name }
+              age={ this.state.persons[1].age }
+              click={ this.switchNameHandler.bind(this, 'José Mariiiii!!!!') }/>
+          <Person
+              name={ this.state.persons[2].name }
+              age={ this.state.persons[2].age } >My hobbies: racing</Person>
       </div>
     );
   }
